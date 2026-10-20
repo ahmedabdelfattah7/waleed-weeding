@@ -1,6 +1,7 @@
 /* =====================================================
    EDIT YOUR WEDDING DETAILS HERE
-   (also update the <title> at the top of index.html —
+   (if names, date or venue change, also update the link-preview
+    lines at the top of index.html and images/share.jpg —
     that's what WhatsApp shows when you share the link)
    ===================================================== */
 const CONFIG = {
