@@ -21,6 +21,8 @@ $('groomFirst').textContent = groom.first;
 $('groomLast').textContent = groom.last;
 $('brideFirst').textContent = bride.first;
 $('brideLast').textContent = bride.last;
+$('gateGroom').textContent = groom.first;
+$('gateBride').textContent = bride.first;
 
 /* ---------- venue, date, time ---------- */
 const when = new Date(CONFIG.date);
@@ -34,6 +36,7 @@ $('venue').textContent = CONFIG.venue;
 $('area').textContent = CONFIG.area;
 $('date').innerHTML = `${day}<sup>${suffix}</sup> ${show({ month: 'long' })} ${show({ year: 'numeric' })}`;
 $('weekday').textContent = show({ weekday: 'long' });
+$('gateDate').textContent = `${day} ${show({ month: 'long' })} ${show({ year: 'numeric' })}`;
 $('time').textContent = when.toLocaleTimeString('en-US', { timeZone: CONFIG.timeZone, hour: 'numeric', minute: '2-digit' }).replace(/\s/, '');
 
 /* ---------- links ---------- */
@@ -70,7 +73,7 @@ gate.addEventListener('click', () => {
   Music.start();
   gate.classList.add('open');
   document.body.classList.replace('locked', 'opened');
-  setTimeout(() => gate.remove(), 2200);
+  setTimeout(() => gate.remove(), 2600);
   setTimeout(startReveal, 700);
 }, { once: true });
 

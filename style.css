@@ -42,23 +42,66 @@ img{display:block}
 @keyframes tilt{from{rotate:calc(var(--r) - 2deg)}to{rotate:calc(var(--r) + 2deg)}}
 @keyframes shine{0%,30%{background-position:100% 0}70%,100%{background-position:0 0}}
 
-/* ---------- 2. Intro curtains + seal ---------- */
-#gate{position:fixed;inset:0;z-index:100;display:flex;justify-content:center;align-items:center;cursor:pointer}
-#gate .half{position:absolute;top:0;bottom:0;width:50.5%;transition:transform 2s cubic-bezier(.7,0,.2,1);
+/* ---------- 2. Intro: curtains + photo (tap to open) ---------- */
+#gate{position:fixed;inset:0;z-index:100;display:flex;justify-content:center;align-items:center;cursor:pointer;overflow:hidden}
+#gate .half{position:absolute;top:0;bottom:0;width:50.5%;transition:transform 2s cubic-bezier(.7,0,.2,1) .25s;
   background:linear-gradient(90deg,rgba(0,0,0,.35),transparent 30%,transparent 70%,rgba(0,0,0,.35)),
     repeating-linear-gradient(90deg,#3e0912 0,#7a1c2d 14px,#9b2c3e 20px,#7a1c2d 26px,#3e0912 40px)}
 #gate .l{left:0}
 #gate .r{right:0}
 #gate.open .l{transform:translateX(-100%)}
 #gate.open .r{transform:translateX(100%)}
-.seal{position:relative;z-index:2;width:170px;height:170px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--wine-dark);
-  background:radial-gradient(circle at 35% 30%,#f3dfa6,#c6a15b 55%,#8f6b2e);
-  box-shadow:0 10px 40px rgba(0,0,0,.6),inset 0 0 0 6px rgba(255,255,255,.15),inset 0 0 0 9px rgba(90,24,34,.35);
-  animation:pulse 2.4s ease-in-out infinite;transition:opacity .6s,transform .6s}
-.seal .ini{font-family:var(--name-font);font-size:52px;letter-spacing:4px;line-height:1}
-.seal small{font-size:10px;letter-spacing:3px;margin-top:10px;text-transform:uppercase}
-#gate.open .seal{opacity:0;transform:scale(.6);animation:none}
-@keyframes pulse{50%{transform:scale(1.05)}}
+
+/* warm spotlight on the curtains */
+#gate::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;transition:opacity .8s;
+  background:radial-gradient(ellipse 70% 55% at 50% 42%,rgba(255,214,150,.28),rgba(255,214,150,.08) 55%,rgba(0,0,0,.35))}
+#gate.open::before{opacity:0}
+
+/* velvet pelmet with gold trim and scallops across the top */
+.pelmet{position:absolute;top:0;left:0;right:0;height:44px;z-index:3;transition:transform 1.2s cubic-bezier(.7,0,.2,1);
+  background:repeating-linear-gradient(90deg,#4a0c17 0,#7d1f30 10px,#4a0c17 20px)}
+.pelmet::before{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--gold)}
+.pelmet::after{content:"";position:absolute;left:0;right:0;top:100%;height:22px;
+  background:radial-gradient(circle at 50% 0,#6a1626 0 19px,var(--gold) 19px 22px,transparent 23px) 0 0/44px 22px repeat-x}
+#gate.open .pelmet{transform:translateY(-200%)}
+
+.gate-card{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;
+  transition:opacity .7s ease,transform .9s ease}
+#gate.open .gate-card{opacity:0;transform:scale(1.06)}
+
+/* the arch frame holding the photo */
+.portrait{position:relative;width:min(62vw,280px,40svh);aspect-ratio:4/5;margin:34px 0 22px;animation:gateIn 1.4s cubic-bezier(.2,.8,.2,1) both}
+.portrait .glow{position:absolute;left:-45%;top:-38%;width:190%;max-width:none;opacity:.55;animation:turn 90s linear infinite}
+.frame{position:absolute;inset:0;overflow:hidden;border:3px solid var(--gold);
+  border-radius:50% 50% 14px 14px / 36% 36% 14px 14px;
+  background:radial-gradient(circle at 50% 38%,#fffaf0 0,#f6e7c8 45%,#e3c793 100%);
+  box-shadow:0 0 0 5px var(--wine),0 0 0 7px var(--gold),0 0 40px 8px rgba(255,214,150,.35),0 22px 40px rgba(0,0,0,.55)}
+.frame::before{content:"";position:absolute;inset:-30%;
+  background:repeating-conic-gradient(from 0deg at 50% 45%,rgba(198,161,91,.22) 0 2deg,transparent 2deg 9deg);
+  animation:turn 60s linear infinite}
+.photo{position:absolute;left:4%;bottom:0;width:92%}
+
+.g-bird{position:absolute;top:-17%;width:42%;--r:18deg;rotate:var(--r);animation:tilt 3.5s ease-in-out infinite alternate}
+.g-bird.left{left:-27%}
+.g-bird.right{right:-27%;transform:scaleX(-1);animation-delay:-1.7s}
+.g-flower{position:absolute;bottom:-11%;width:27%;--r:-8deg;rotate:var(--r);animation:tilt 5s ease-in-out infinite alternate}
+.g-flower.left{left:-17%}
+.g-flower.right{right:-17%;transform:scaleX(-1);animation-delay:-2.5s}
+.g-sparkles{position:absolute;left:-30%;top:-10%;width:160%;max-width:none;opacity:.8;pointer-events:none}
+
+.gate-names{font-family:var(--name-font);font-size:clamp(24px,7.6vw,34px);letter-spacing:.12em;text-transform:uppercase;line-height:1.2;
+  background:linear-gradient(90deg,#b8894a,#f6e3c0 50%,#b8894a) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gateIn 1.2s .5s cubic-bezier(.2,.8,.2,1) both,shine 5s 1.7s ease-in-out infinite}
+.gate-names em{font-style:italic;text-transform:none;letter-spacing:0;padding:0 .2em}
+.gate-date{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:#ecd7ad;
+  animation:gateIn 1.2s .75s cubic-bezier(.2,.8,.2,1) both}
+.gate-date::before,.gate-date::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.gate-date::after{transform:scaleX(-1)}
+.gate-tap{margin-top:26px;padding:10px 26px;border:1px solid var(--gold);border-radius:999px;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--wine-dark);background:linear-gradient(180deg,#f3dfa6,#c9a063);
+  animation:gateIn 1.2s 1s cubic-bezier(.2,.8,.2,1) both,pulse 2.4s 2.2s ease-in-out infinite}
+@keyframes gateIn{from{opacity:0;translate:0 26px}to{opacity:1;translate:0 0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(211,173,127,.55)}50%{box-shadow:0 0 0 10px rgba(211,173,127,0)}}
 
 /* floating music button */
 #musicBtn{position:fixed;bottom:18px;right:max(18px,calc(50% - 222px));z-index:50;width:48px;height:48px;border-radius:50%;
