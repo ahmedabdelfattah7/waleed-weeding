@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Waleed & Kholoud — Wedding Invitation</title>
+<meta property="og:title" content="Waleed & Kholoud are getting married">
+<meta property="og:description" content="Tap to open your invitation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:wght@500&family=Noto+Nastaliq+Urdu:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+
+<!-- ============ INTRO: curtains + wax seal ============ -->
+<div id="gate" role="button" aria-label="Open invitation">
+  <div class="half l"></div><div class="half r"></div>
+  <div class="seal">
+    <div class="ini"><span class="i1"></span> · <span class="i2"></span></div>
+    <small>Tap to open</small>
+  </div>
+</div>
+
+<button id="musicBtn" aria-label="Play or pause music">♪</button>
+
+<!--
+  The page is drawn on a 1366px-wide canvas (like the original design)
+  and scaled to fit the phone. Positions are in style.css.
+  Elements further down this file are drawn on top.
+-->
+<main class="card">
+<div class="page" id="page">
+
+  <!-- ============ 1. HERO: curtains, names, countdown, singer ============ -->
+  <img class="sunburst" src="images/sunburst.png" alt="">
+  <div class="colstrip left"></div>
+  <div class="colstrip right"></div>
+  <img class="frieze" src="images/ledge.png" alt="">
+  <div class="cord top"></div>
+  <img class="stairs" src="images/stairs.png" alt="">
+  <div class="col hero-col c1"></div>
+  <div class="col hero-col c2"></div>
+  <div class="col hero-col c3"></div>
+  <div class="col hero-col c4"></div>
+  <img class="curtains" src="images/curtains.png" alt="">
+  <img class="singer reveal up" style="--d:.3s" src="images/singer.png" alt="">
+
+  <!-- ============ 2. INVITATION: arch, musicians, chandelier ============ -->
+  <img class="arch reveal zoom" src="images/arch.png" alt="">
+  <img class="ledge" src="images/ledge.png" alt="">
+  <img class="chandelier reveal drop" src="images/chandelier.png" alt="">
+  <img class="oud right reveal from-right" src="images/oud.png" alt="">
+  <img class="bird left reveal from-left" style="--d:.2s" src="images/bird.png" alt="">
+  <img class="bird right reveal from-right" style="--d:.2s" src="images/bird.png" alt="">
+
+  <!-- ============ 3. DETAILS: place, date, time, palace ============ -->
+  <img class="palace reveal rise" src="images/palace.png" alt="">
+  <div class="col end right"></div>
+  <div class="col end left"></div>
+
+  <!-- tap to listen + the cord and mic hanging over the singer -->
+  <svg class="notes reveal fade" style="--d:1.2s" viewBox="0 0 280 160" aria-hidden="true">
+    <path d="M10 120 C80 60 170 40 270 60 M10 132 C80 72 170 52 270 72 M10 144 C80 84 170 64 270 84" fill="none" stroke="#5a1013" stroke-width="2"/>
+    <text x="180" y="96" font-size="120" fill="#5a1013" font-family="serif">𝄞</text>
+    <text x="60" y="95" font-size="54" fill="#5a1013">♪</text>
+    <text x="110" y="78" font-size="54" fill="#5a1013">♫</text>
+  </svg>
+  <p class="tap-to reveal fade" style="--d:1.2s">Tap to</p>
+  <p class="listen-word reveal fade" style="--d:1.35s">Listen</p>
+  <div class="cord"></div>
+  <img class="mic reveal drop" style="--d:.9s" src="images/mic.png" alt="">
+  <button class="tap-area" type="button" aria-label="Play or pause music"></button>
+
+  <img class="oud left reveal from-left" src="images/oud.png" alt="">
+  <img class="sparkles s1" src="images/sparkles.gif" alt="">
+  <p class="invite-you reveal up" style="--d:.6s">Invite you to join their forever</p>
+  <img class="sparkles s2" src="images/sparkles.gif" alt="">
+  <img class="flute-player reveal from-left" style="--d:.2s" src="images/flute-player.png" alt="">
+  <img class="reveal zoom anthurium right low" src="images/anthurium.png" alt="">
+  <img style="--d:.15s" class="reveal zoom bouquet right low" src="images/bouquet-2.png" alt="">
+  <img class="reveal zoom anthurium right high" src="images/anthurium.png" alt="">
+  <img class="sparkles s3" src="images/sparkles.gif" alt="">
+  <img class="oud-player reveal from-right" style="--d:.2s" src="images/oud-player.png" alt="">
+  <img style="--d:.15s" class="reveal zoom bouquet right high" src="images/bouquet-1.png" alt="">
+  <img class="reveal zoom anthurium left high" src="images/anthurium.png" alt="">
+  <img style="--d:.15s" class="reveal zoom bouquet left high" src="images/bouquet-1.png" alt="">
+  <img class="reveal zoom anthurium left low" src="images/anthurium.png" alt="">
+  <img style="--d:.15s" class="reveal zoom bouquet left low" src="images/bouquet-1.png" alt="">
+
+  <a class="rsvp reveal up" style="--d:.7s" id="rsvp" target="_blank" rel="noopener">Kindly RSVP here</a>
+  <img class="sun reveal zoom" style="--d:.3s" src="images/sun.png" alt="">
+  <img class="icon map reveal zoom" src="images/icon-map.svg" alt="">
+  <img class="icon calendar reveal zoom" src="images/icon-calendar.svg" alt="">
+  <img class="icon watch reveal zoom" src="images/icon-watch.png" alt="">
+
+  <!-- ===== texts (names, date, venue come from config.js) ===== -->
+  <div class="mono reveal zoom"><span class="i1"></span><span class="i2"></span></div>
+  <p class="together reveal up" style="--d:.15s">Together with their families</p>
+  <p class="groom reveal from-left" style="--d:.3s"><span id="groomFirst"></span><br><span id="groomLast"></span></p>
+  <p class="and reveal zoom" style="--d:.45s">&amp;</p>
+  <p class="bride reveal from-right" style="--d:.3s"><span id="brideFirst"></span><br><span id="brideLast"></span></p>
+  <div class="countdown reveal up" style="--d:.75s" id="countdown">
+    <b id="cd-d">00</b><i>:</i><b id="cd-h">00</b><i>:</i><b id="cd-m">00</b><i>:</i><b id="cd-s">00</b>
+  </div>
+
+  <p class="arabic reveal up" style="--d:.3s">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ<br>أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
+  <p class="message reveal up" style="--d:.5s">With full hearts and the blessing of our families, we would be honoured to have you beside us as we begin our life together</p>
+
+  <p class="details venue reveal up" style="--d:.15s"><span id="venue"></span><br><span id="area"></span></p>
+  <a class="location reveal up" style="--d:.3s" id="mapLink" target="_blank" rel="noopener">Click here for location</a>
+  <p class="details date reveal up" style="--d:.15s"><span id="date"></span><br><span id="weekday"></span></p>
+  <p class="details time reveal up" style="--d:.15s">Starts at<br><span id="time"></span></p>
+
+</div>
+</main>
+
+<script src="config.js"></script>
+<script src="music.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

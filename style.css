@@ -1,0 +1,209 @@
+/* =============================================================
+   WEDDING INVITATION — styles
+   The page is a 1366 × 8000 canvas (same as the original design);
+   script.js scales it down to the phone's width. Every number
+   below is in "canvas pixels".
+
+   1. Colours, fonts & basics     4. Section 2 · Invitation
+   2. Intro curtains              5. Section 3 · Details
+   3. Section 1 · Hero            6. Texts
+   ============================================================= */
+
+/* ---------- 1. Colours, fonts & basics ---------- */
+
+/* The original uses two paid fonts: Cregan (text) and Eclleria (names).
+   Put your licensed font files in a fonts/ folder with these names and
+   they're picked up automatically. Until then the free look-alikes after
+   them in --text-font / --name-font are used. */
+@font-face{font-family:Cregan;src:url(fonts/Cregan.woff2) format('woff2'),url(fonts/Cregan.otf) format('opentype');font-display:swap}
+@font-face{font-family:Eclleria;src:url(fonts/Eclleria.woff2) format('woff2'),url(fonts/Eclleria.otf) format('opentype');font-display:swap}
+
+:root{
+  --wine:#5a1013; --wine-dark:#4c0608;
+  --gold:#d3ad7f; --cream:#f9eede;
+  --text-font:Cregan,'Marcellus',serif;
+  --name-font:Eclleria,'Cormorant Garamond',serif;
+  --arabic-font:'Noto Nastaliq Urdu',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#140609;font-family:var(--text-font);color:var(--wine);-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden;height:100vh}
+img{display:block}
+
+.card{max-width:480px;margin:0 auto;overflow:hidden;box-shadow:0 0 80px rgba(0,0,0,.6)}
+.page{position:relative;width:1366px;height:8000px;overflow:hidden;
+  background:url(images/paper.jpg) 0 0/1366px auto repeat-y}
+.page>*{position:absolute}
+
+@keyframes sway{from{rotate:-1.2deg}to{rotate:1.2deg}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes turn{to{rotate:360deg}}
+@keyframes swing{from{rotate:-3deg}to{rotate:3deg}}
+@keyframes tilt{from{rotate:calc(var(--r) - 2deg)}to{rotate:calc(var(--r) + 2deg)}}
+@keyframes shine{0%,30%{background-position:100% 0}70%,100%{background-position:0 0}}
+
+/* ---------- 2. Intro curtains + seal ---------- */
+#gate{position:fixed;inset:0;z-index:100;display:flex;justify-content:center;align-items:center;cursor:pointer}
+#gate .half{position:absolute;top:0;bottom:0;width:50.5%;transition:transform 2s cubic-bezier(.7,0,.2,1);
+  background:linear-gradient(90deg,rgba(0,0,0,.35),transparent 30%,transparent 70%,rgba(0,0,0,.35)),
+    repeating-linear-gradient(90deg,#3e0912 0,#7a1c2d 14px,#9b2c3e 20px,#7a1c2d 26px,#3e0912 40px)}
+#gate .l{left:0}
+#gate .r{right:0}
+#gate.open .l{transform:translateX(-100%)}
+#gate.open .r{transform:translateX(100%)}
+.seal{position:relative;z-index:2;width:170px;height:170px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--wine-dark);
+  background:radial-gradient(circle at 35% 30%,#f3dfa6,#c6a15b 55%,#8f6b2e);
+  box-shadow:0 10px 40px rgba(0,0,0,.6),inset 0 0 0 6px rgba(255,255,255,.15),inset 0 0 0 9px rgba(90,24,34,.35);
+  animation:pulse 2.4s ease-in-out infinite;transition:opacity .6s,transform .6s}
+.seal .ini{font-family:var(--name-font);font-size:52px;letter-spacing:4px;line-height:1}
+.seal small{font-size:10px;letter-spacing:3px;margin-top:10px;text-transform:uppercase}
+#gate.open .seal{opacity:0;transform:scale(.6);animation:none}
+@keyframes pulse{50%{transform:scale(1.05)}}
+
+/* floating music button */
+#musicBtn{position:fixed;bottom:18px;right:max(18px,calc(50% - 222px));z-index:50;width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--gold);background:var(--wine);color:var(--gold);font-size:22px;display:none;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer;opacity:.6}
+.opened #musicBtn{display:flex}
+.music-on #musicBtn{animation:spin 4s linear infinite;opacity:1}
+
+/* columns: one picture, flipped and stacked */
+.col{background:url(images/column.png) right bottom/246.6px 884.1px no-repeat}
+.colstrip{top:2831.6px;width:240.5px;height:4311.3px;background:url(images/column-strip.png) 0 0/240.5px 990px repeat-y}
+.colstrip.left{left:-42.7px}
+.colstrip.right{left:1168.8px;transform:scaleX(-1)}
+
+/* ---------- 3. Section 1 · Hero ---------- */
+.sunburst{top:1495.8px;left:167.6px;width:1054.3px;height:1054.3px;opacity:.32;animation:turn 120s linear infinite}
+.stairs{top:1818.3px;left:-105px;width:1594px;height:1411.6px}
+.hero-col{width:240.5px;height:684.9px}
+.hero-col.c1{top:448.6px;left:163.1px}
+.hero-col.c2{top:448.6px;left:975.4px;transform:scaleX(-1)}
+.hero-col.c3{top:1133.5px;left:163.1px;transform:scaleY(-1)}
+.hero-col.c4{top:1133.5px;left:975.4px;transform:scale(-1)}
+.curtains{top:0;left:-18px;width:1400.3px;height:1890.4px}
+.singer{top:1642.2px;left:471.4px;width:441.2px;height:661.7px}
+
+/* the cord the microphone hangs from */
+.cord{left:759.8px;width:48.5px;background:url(images/cord.png) 0 0/48.5px 52.3px repeat-y}
+.cord.top{top:423.6px;height:104.6px}
+.cord:not(.top){top:528.3px;height:1053px;opacity:.34}
+.mic{top:1580.2px;left:759.8px;width:54px;height:115.3px;transform-origin:50% 0;animation:swing 3.5s ease-in-out infinite alternate}
+
+.notes{top:1678px;left:730.4px;width:279.2px;height:161.2px;rotate:-27.4deg}
+.tap-to,.listen-word{font-size:32px;letter-spacing:.019em;white-space:nowrap}
+.tap-to{top:1669px;left:747.8px;rotate:-12deg}
+.listen-word{top:1705.5px;left:824.2px;font-size:33.5px;rotate:-7.7deg}
+.tap-area{top:1534.7px;left:404px;width:932.8px;height:524.3px;background:none;border:0;cursor:pointer}
+
+/* ---------- 4. Section 2 · Invitation ---------- */
+.frieze{top:3165px;left:-111px;width:1586.7px;height:179.6px;object-fit:cover;object-position:top}
+.arch{top:3390.5px;left:134px;width:1093.2px;height:1463.4px}
+.sun{top:3422.5px;left:599.9px;width:166.2px;height:166.2px;animation:turn 40s linear infinite}
+.bird{top:3063.8px;width:547.8px;height:723.3px;rotate:var(--r);animation:tilt 3.5s ease-in-out infinite alternate}
+.bird.left{left:-61.6px;--r:19.95deg}
+.bird.right{top:3067px;left:891.4px;transform:scaleX(-1);--r:-14.8deg;animation-delay:-1.7s}
+
+/* twinkling sparkles over the arch (an animated gif, turned sideways) */
+.sparkles{rotate:-90deg;opacity:.47}
+.sparkles.s1{top:3723.6px;left:-4.3px;width:1386px;height:699.9px}
+.sparkles.s2{top:3934.1px;left:-8.2px;width:727.9px;height:367.6px}
+.sparkles.s3{top:3975.5px;left:716.9px;width:643.4px;height:324.9px;transform:scaleX(-1)}
+
+.flute-player{top:4343.6px;left:-45.4px;width:478.6px;height:691.9px;object-fit:cover;object-position:bottom;transform:scaleX(-1)}
+.oud-player{top:4328.6px;left:880.4px;width:482.2px;height:724.4px}
+.ledge{top:4846.7px;left:-6.7px;width:1379.3px;height:167.6px}
+.chandelier{top:4999.6px;left:374.1px;width:601.3px;height:801.7px;transform-origin:50% 0;animation:sway 5s ease-in-out infinite alternate}
+
+/* ---------- 5. Section 3 · Details ---------- */
+.anthurium{width:164.8px;height:334px;object-fit:cover;object-position:top}
+.anthurium,.bouquet{rotate:var(--r);animation:tilt 5s ease-in-out infinite alternate}
+.low{animation-delay:-2.5s}
+.bouquet{width:200.3px;height:434.2px}
+.anthurium.right{--r:-20.1deg}
+.anthurium.left{--r:17.6deg;transform:scaleX(-1)}
+.bouquet.right{--r:-3.2deg}
+.bouquet.left{--r:6.8deg;transform:scaleX(-1)}
+.anthurium.right.high{top:5053.7px;left:1106.3px}
+.anthurium.right.low{top:6468.7px;left:1098.5px}
+.anthurium.left.high{top:5057.7px;left:104.7px}
+.anthurium.left.low{top:6467.7px;left:104.7px}
+.bouquet.right.high{top:5115.5px;left:1168.3px}
+.bouquet.right.low{top:6530.6px;left:1160.5px}
+.bouquet.left.high{top:5116.3px;left:6.9px}
+.bouquet.left.low{top:6526.3px;left:6.9px}
+
+.oud{top:5778.5px;width:320px;height:427.4px}
+.oud.right{left:1129px}
+.oud.left{left:-85.4px;transform:scaleX(-1)}
+
+.icon{object-fit:contain}
+.icon.map{top:5773.8px;left:558.4px;width:241.1px;height:147.3px}
+.icon.calendar{top:6319.7px;left:577.8px;width:189.9px;height:123.3px}
+.icon.watch{top:6733.5px;left:603px;width:158.4px;height:228.6px}
+
+.palace{top:7038.7px;left:93.1px;width:1196px;height:956.8px}
+.col.end{top:7142.9px;width:246.6px;height:884.1px}
+.col.end.left{left:-48.8px;transform:scaleY(-1)}
+.col.end.right{left:1168.8px;transform:scale(-1)}
+
+/* ---------- 6. Texts ---------- */
+.together,.invite-you{font-size:40px;letter-spacing:.019em;text-transform:uppercase;text-align:center;white-space:nowrap;line-height:1.17}
+.together{top:1052.6px;left:204px;width:1000px}
+.invite-you{top:1387.2px;left:191px;width:1000px}
+
+.groom,.and,.bride{font-family:var(--name-font);text-transform:uppercase;text-align:center;letter-spacing:.019em;white-space:nowrap;line-height:1.29}
+.groom{top:1182.4px;left:277px;width:391px;font-size:47.4px}
+.and{top:1195.9px;left:454.5px;width:452.6px;font-size:54.9px}
+.bride{top:1182.1px;left:693.2px;width:391px;font-size:47.4px}
+
+/* monogram: the two initials overlapping, with a line through */
+.mono{top:719.4px;left:609.8px;width:169.9px;height:275.7px;font-family:var(--name-font);color:var(--wine-dark)}
+.mono span{position:absolute;font-size:190px;line-height:1}
+.mono .i1{left:-6px;top:-10px}
+.mono .i2{right:-10px;bottom:-14px}
+.mono::after{content:"";position:absolute;left:50%;top:-24px;bottom:-24px;width:2px;background:var(--wine-dark)}
+
+.countdown{top:1460.2px;left:257.8px;width:871.3px;height:130.7px;display:flex;justify-content:center;align-items:center;
+  font-family:'Times New Roman',Times,serif;font-size:96px;line-height:1;color:var(--wine)}
+.countdown b{font-weight:400;min-width:1.05em;text-align:center}
+.countdown i{font-style:normal;padding:0 .08em}
+.countdown b.bump{animation:bump .5s}
+.countdown .today{font-size:64px;letter-spacing:.05em;text-transform:uppercase}
+@keyframes bump{from{transform:translateY(-10px);opacity:.3}to{transform:none;opacity:1}}
+
+.arabic{top:3605px;left:183px;width:1000px;font-family:var(--arabic-font);font-weight:700;font-size:56px;line-height:124px;
+  direction:rtl;text-align:center;color:var(--gold)}
+.message{top:3942.9px;left:180.4px;width:1000.6px;font-size:66px;line-height:1.4;letter-spacing:.019em;
+  text-transform:uppercase;text-align:center;color:var(--gold)}
+
+.rsvp,.location{display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:40px;
+  letter-spacing:.019em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.rsvp{top:4616px;left:484.5px;width:386px;height:67px;color:var(--wine);
+  background:linear-gradient(110deg,var(--gold) 40%,#f6e3c0 50%,var(--gold) 60%) 0 0/300% 100%;animation:shine 4s ease-in-out infinite}
+.location{top:6165.3px;left:404px;width:532.1px;height:66.5px;background:var(--wine);color:var(--cream)}
+.rsvp:active,.location:active{transform:scale(.96)}
+
+.details{left:183px;width:1000px;font-size:59.5px;line-height:1.3;letter-spacing:.019em;text-transform:uppercase;text-align:center;white-space:nowrap}
+.details sup{font-size:.6em;vertical-align:.43em;line-height:0}
+.venue{top:5959px}
+.date{top:6502.6px}
+.time{top:7014px}
+
+/* ---------- 7. Scroll animations ----------
+   Anything with class "reveal" waits hidden until it scrolls into view,
+   then glides in. The second class says how; style="--d:.3s" delays it. */
+.reveal{opacity:0;transition:opacity 1.3s ease,translate 1.5s cubic-bezier(.2,.8,.2,1),scale 1.5s cubic-bezier(.2,.8,.2,1);
+  transition-delay:var(--d,0s)}
+.reveal.up{translate:0 90px}
+.reveal.rise{translate:0 160px;transition-duration:2s}
+.reveal.drop{translate:0 -120px}
+.reveal.from-left{translate:-120px 0}
+.reveal.from-right{translate:120px 0}
+.reveal.zoom{scale:.82}
+.reveal.in{opacity:1;translate:0 0;scale:1}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;translate:none;scale:none}
+}
